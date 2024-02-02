@@ -29,8 +29,9 @@ def webServer(port=13331):
       filename = message.split()[1]
       #opens the client requested file.
       #Plenty of guidance online on how to open and read a file in python. How should you read it though if you plan on sending it through a socket?
-      f = open(filename[1:], 'rb')
+      f = open(filename[1:], 'r')
       outputdata = f.read()
+      f.close()
 
       #This variable can store the headers you want to send for any valid or invalid request.   What header should be sent for a response that is ok?
       #Content-Type is an example on how to send a header as bytes. There are more!
@@ -55,7 +56,6 @@ def webServer(port=13331):
       # Next, close the file and server socket, right?
 
   #Commenting out the below, as its technically not required and some students have moved it erroneously in the While loop. DO NOT DO THAT OR YOURE GONNA HAVE A BAD TIME.
-  f.close()
   serverSocket.close()
   sys.exit()  # Terminate the program after sending the corresponding data
 
