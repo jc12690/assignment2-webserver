@@ -4,8 +4,6 @@ from socket import *
 # In order to terminate the program
 import sys
 
-
-
 def webServer(port=13331):
   serverSocket = socket(AF_INET, SOCK_STREAM)
 
@@ -13,7 +11,7 @@ def webServer(port=13331):
   serverSocket.bind(("", port))
 
   # The server listens on the specified port
-  serverSocket.listen(port)
+  serverSocket.listen(5)
 
   while True:
     #Establish the connection
@@ -21,7 +19,6 @@ def webServer(port=13331):
     #print(host)
     print('Ready to serve...')
     connectionSocket, addr = serverSocket.accept()
-
 
     try:
       # Client sends a message containing the file
