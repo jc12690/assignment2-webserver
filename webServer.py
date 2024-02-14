@@ -38,7 +38,7 @@ def webServer(port=13331):
       for i in f: #for line in file
       #Send the content of the requested file to the client (don't forget the headers you created)!
         header += i
-        connectionSocket.sendall(header.encode())
+        connectionSocket.sendall(header)
 
         connectionSocket.close() #closing the connection socket
 
@@ -46,7 +46,7 @@ def webServer(port=13331):
       # Send response message for invalid request due to the file not being found (404)
       # Remember the format you used in the try: block!
       notfound = 'HTTP/1.1 404 Not Found\r\nContent-Type: text/html; charset=UTF-8\r\nConnection: keep-alive\r\nServer: CarterPortnoyPythonServer/2.1.2024\r\n\r\n'
-      connectionSocket.sendall(notfound.encode())
+      connectionSocket.sendall(notfound)
 
       #Close client socket
       connectionSocket.close()
