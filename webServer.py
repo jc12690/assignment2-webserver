@@ -33,14 +33,15 @@ def webServer(port=13331):
       #outputdata = b"Content-Type: text/html; charset=UTF-8\r\n"
       header = 'HTTP/1.1 200 OK\r\nContent-Type: text/html; charset=UTF-8\r\nConnection: close\r\nServer: CarterPortnoyPythonServer/2.1.2024\r\n\r\n'
       connectionSocket.sendall(header.encode())
-      #f.close()
+      connectionSocket.sendfile(f)
+
 
       for i in f: #for line in file
       #Send the content of the requested file to the client (don't forget the headers you created)!
         header += i
         connectionSocket.sendall(header.encode())
-
         connectionSocket.close() #closing the connection socket
+        f.close()
 
     except Exception as e:
       # Send response message for invalid request due to the file not being found (404)
