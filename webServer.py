@@ -24,13 +24,13 @@ def webServer(port=13331):
       filename = message.split()[1]
       #opens the client requested file.
       #Plenty of guidance online on how to open and read a file in python. How should you read it though if you plan on sending it through a socket?
-      f = open(filename[1:], 'r')
+      f = open(filename[1:], 'rb')
       #This variable can store the headers you want to send for any valid or invalid request.   What header should be sent for a response that is ok?
       #Content-Type is an example on how to send a header as bytes. There are more!
-      header = b"HTTP/1.1 200 OK\r\n"
-      header += b"Content-Type: text/html; charset=UTF-8\r\n"
-      header += b"Server: CarterPortnoyPythonServer/2.1.2024\r\n"
-      header += b"Connection: keep-alive\r\n\r\n"
+      header = 'HTTP/1.1 200 OK\r\n'
+      header += 'Content-Type: text/html; charset=UTF-8\r\n'
+      header += 'Server: CarterPortnoyPythonServer/2.1.2024\r\n'
+      header += 'Connection: keep-alive\r\n\r\n'
 
       for i in f: #for line in file
       #Send the content of the requested file to the client (don't forget the headers you created)!
@@ -41,7 +41,7 @@ def webServer(port=13331):
     except Exception as e:
       # Send response message for invalid request due to the file not being found (404)
       # Remember the format you used in the try: block!
-      notfound = b'HTTP/1.1 404 Not Found\r\nContent-Type: text/html; charset=UTF-8\r\nConnection: keep-alive\r\nServer: CarterPortnoyPythonServer/2.1.2024\r\n\r\n'
+      notfound = 'HTTP/1.1 404 Not Found\r\nContent-Type: text/html; charset=UTF-8\r\nConnection: keep-alive\r\nServer: CarterPortnoyPythonServer/2.1.2024\r\n\r\n'
       connectionSocket.send(notfound)
 
       #Close client socket
