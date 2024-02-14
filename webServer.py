@@ -11,7 +11,7 @@ def webServer(port=13331):
   serverSocket.bind(("", port))
 
   # The server listens on the specified port
-  serverSocket.listen(1)
+  serverSocket.listen(port)
 
   while True:
     #Establish the connection
@@ -32,15 +32,15 @@ def webServer(port=13331):
       #outputdata = b"Content-Type: text/html; charset=UTF-8\r\n"
       header = "HTTP/1.1 200 OK\r\nContent-Type: text/html; charset=UTF-8\r\nServer: CarterPortnoyPythonServer/2.1.2024\r\nConnection: keep-alive\r\n\r\n"
 
-      connectionSocket.sendall(header)
-      connectionSocket.sendfile(f)
+      #connectionSocket.sendall(output)
+      #connectionSocket.sendfile(f)
 
       for i in f: #for line in file
       #Send the content of the requested file to the client (don't forget the headers you created)!
-        header += i.encode()
-        connectionSocket.sendall(header)
-        connectionSocket.close() #closing the connection socket
+        header += i
         f.close()
+        connectionSocket.sendall(header)
+        #connectionSocket.close() #closing the connection socket
 
     except Exception as e:
       # Send response message for invalid request due to the file not being found (404)
