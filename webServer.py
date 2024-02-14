@@ -31,10 +31,13 @@ def webServer(port=13331):
       #This variable can store the headers you want to send for any valid or invalid request.   What header should be sent for a response that is ok?
       #Content-Type is an example on how to send a header as bytes. There are more!
       #outputdata = b"Content-Type: text/html; charset=UTF-8\r\n"
-      header = b'HTTP/1.1 200 OK\r\nContent-Type: text/html; charset=UTF-8\r\nConnection: close\r\nServer: CarterPortnoyPythonServer/2.1.2024\r\n\r\n'
-      connectionSocket.sendall(header.encode())
-      connectionSocket.sendfile(f)
+      header = b"HTTP/1.1 200 OK\r\n"
+      header += b"Content-Type: text/html; charset=UTF-8\r\n"
+      header+= b"Connection: close\r\n"
+      header+= b"Server: CarterPortnoyPythonServer/2.1.2024\r\n\r\n"
 
+      #connectionSocket.sendall(header.encode())
+      #connectionSocket.sendfile(f)
 
       for i in f: #for line in file
       #Send the content of the requested file to the client (don't forget the headers you created)!
@@ -46,7 +49,7 @@ def webServer(port=13331):
     except Exception as e:
       # Send response message for invalid request due to the file not being found (404)
       # Remember the format you used in the try: block!
-      notfound = b'HTTP/1.1 404 Not Found\r\nContent-Type: text/html; charset=UTF-8\r\nConnection: keep-alive\r\nServer: CarterPortnoyPythonServer/2.1.2024\r\n\r\n'
+      notfound = 'HTTP/1.1 404 Not Found\r\nContent-Type: text/html; charset=UTF-8\r\nConnection: keep-alive\r\nServer: CarterPortnoyPythonServer/2.1.2024\r\n\r\n'
       connectionSocket.sendall(notfound.encode())
 
       #Close client socket
