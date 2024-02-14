@@ -45,7 +45,7 @@ def webServer(port=13331):
     except Exception as e:
       # Send response message for invalid request due to the file not being found (404)
       # Remember the format you used in the try: block!
-      notfound = 'HTTP/1.1 404 Not Found\r\nContent-Type: text/html; charset=UTF-8\r\nConnection: keep-alive\r\nServer: CarterPortnoyPythonServer/2.1.2024\r\n\r\n'
+      notfound = 'HTTP/1.1 404 Not Found\r\nContent-Type: text/html; charset=UTF-8\r\nConnection: keep-alive\r\nServer: CarterPortnoyPythonServer/2.1.2024\r\n\r\n<html><body>'
       connectionSocket.sendall(notfound.encode())
 
       #Close client socket
