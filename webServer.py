@@ -8,15 +8,13 @@ def webServer(port=13331):
   serverSocket = socket(AF_INET, SOCK_STREAM)
 
   #Prepare a server socket
-  serverSocket.bind(("", port))
+  serverSocket.bind(("127.0.0.1", port))
 
   # The server listens on the specified port
-  serverSocket.listen(port)
+  serverSocket.listen(1)
 
   while True:
     #Establish the connection
-    #host = serverSocket.getsockname()
-    #print(host)
     print('Ready to serve...')
     connectionSocket, addr = serverSocket.accept()
 
@@ -29,24 +27,22 @@ def webServer(port=13331):
       f = open(filename[1:], 'rb')
       #This variable can store the headers you want to send for any valid or invalid request.   What header should be sent for a response that is ok?
       #Content-Type is an example on how to send a header as bytes. There are more!
-      #outputdata = b"Content-Type: text/html; charset=UTF-8\r\n"
-      header = "HTTP/1.1 200 OK\r\nContent-Type: text/html; charset=UTF-8\r\nServer: CarterPortnoyPythonServer/2.1.2024\r\nConnection: keep-alive\r\n\r\n"
-
-      #connectionSocket.sendall(output)
-      #connectionSocket.sendfile(f)
+      header = "HTTP/1.1 200 OK\r\n"
+      header += "Content-Type: text/html; charset=UTF-8\r\n"
+      header += "Server: CarterPortnoyPythonServer/2.1.2024\r\n"
+      header += "Connection: keep-alive\r\n\r\n"
 
       for i in f: #for line in file
       #Send the content of the requested file to the client (don't forget the headers you created)!
         header += i
         f.close()
-        connectionSocket.sendall(header)
-        #connectionSocket.close() #closing the connection socket
+        connectionSocket.send(header)
 
     except Exception as e:
       # Send response message for invalid request due to the file not being found (404)
       # Remember the format you used in the try: block!
-      notfound = b'HTTP/1.1 404 Not Found\r\nContent-Type: text/html; charset=UTF-8\r\nConnection: keep-alive\r\nServer: CarterPortnoyPythonServer/2.1.2024\r\n\r\n'
-      connectionSocket.sendall(notfound)
+      notfound = 'HTTP/1.1 404 Not Found\r\nContent-Type: text/html; charset=UTF-8\r\nConnection: keep-alive\r\nServer: CarterPortnoyPythonServer/2.1.2024\r\n\r\n'
+      connectionSocket.send(notfound)
 
       #Close client socket
       connectionSocket.close()
