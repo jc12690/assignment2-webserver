@@ -42,7 +42,7 @@ def webServer(port=13331):
       for i in f: #for line in file
       #Send the content of the requested file to the client (don't forget the headers you created)!
         header += i
-        connectionSocket.sendall(header.encode())
+        connectionSocket.sendall(header)
         connectionSocket.close() #closing the connection socket
         f.close()
 
