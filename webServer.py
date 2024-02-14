@@ -26,15 +26,12 @@ def webServer(port=13331):
       filename = message.split()[1]
       #opens the client requested file.
       #Plenty of guidance online on how to open and read a file in python. How should you read it though if you plan on sending it through a socket?
-      f = open(filename[1:], 'r')
-      #f.read()
+      f = open(filename[1:], 'rb')
+      f.read()
       #This variable can store the headers you want to send for any valid or invalid request.   What header should be sent for a response that is ok?
       #Content-Type is an example on how to send a header as bytes. There are more!
       #outputdata = b"Content-Type: text/html; charset=UTF-8\r\n"
-      header = b"HTTP/1.1 200 OK\r\n"
-      header += b"Content-Type: text/html; charset=UTF-8\r\n"
-      header+= b"Server: CarterPortnoyPythonServer/2.1.2024\r\n"
-      header += b"Connection: close\r\n\r\n"
+      header = "HTTP/1.1 200 OK\r\nContent-Type: text/html; charset=UTF-8\r\nServer: CarterPortnoyPythonServer/2.1.2024\r\nConnection: keep-alive\r\n\r\n"
 
       connectionSocket.sendall(header)
       connectionSocket.sendfile(f)
