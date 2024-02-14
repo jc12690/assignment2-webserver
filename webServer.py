@@ -8,7 +8,7 @@ def webServer(port=13331):
   serverSocket = socket(AF_INET, SOCK_STREAM)
 
   #Prepare a server socket
-  serverSocket.bind(("127.0.0.1", port))
+  serverSocket.bind(("", port))
 
   # The server listens on the specified port
   serverSocket.listen(1)
@@ -22,7 +22,7 @@ def webServer(port=13331):
 
     try:
       # Client sends a message containing the file
-      message = connectionSocket.recv(1024).decode()
+      message = connectionSocket.recv(1024)
       filename = message.split()[1]
       #opens the client requested file.
       #Plenty of guidance online on how to open and read a file in python. How should you read it though if you plan on sending it through a socket?
@@ -33,11 +33,11 @@ def webServer(port=13331):
       #outputdata = b"Content-Type: text/html; charset=UTF-8\r\n"
       header = b"HTTP/1.1 200 OK\r\n"
       header += b"Content-Type: text/html; charset=UTF-8\r\n"
-      header+= b"Connection: close\r\n"
-      header+= b"Server: CarterPortnoyPythonServer/2.1.2024\r\n\r\n"
+      header+= b"Server: CarterPortnoyPythonServer/2.1.2024\r\n"
+      header += b"Connection: close\r\n\r\n"
 
-      connectionSocket.sendall(header)
-      connectionSocket.sendfile(f)
+      #connectionSocket.sendall(header)
+      #connectionSocket.sendfile(f)
 
       for i in f: #for line in file
       #Send the content of the requested file to the client (don't forget the headers you created)!
