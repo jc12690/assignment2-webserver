@@ -36,8 +36,8 @@ def webServer(port=13331):
       header+= bytes("Connection: close\r\n", 'utf-8')
       header+= bytes("Server: CarterPortnoyPythonServer/2.1.2024\r\n\r\n", 'utf-8')
 
-      connectionSocket.sendall(header)
-      connectionSocket.sendfile(f)
+      #connectionSocket.sendall(header)
+      #connectionSocket.sendfile(f)
 
       for i in f: #for line in file
       #Send the content of the requested file to the client (don't forget the headers you created)!
