@@ -27,21 +27,20 @@ def webServer(port=13331):
       f = open(filename[1:], 'rb')
       #This variable can store the headers you want to send for any valid or invalid request.   What header should be sent for a response that is ok?
       #Content-Type is an example on how to send a header as bytes. There are more!
-      #outputdata = b"Content-Type: text/html; charset=UTF-8\r\n"
       header = b"HTTP/1.1 200 OK\r\n"
       header += b"Content-Type: text/html; charset=UTF-8\r\n"
       header+= b"Server: CarterPortnoyPythonServer/2.1.2024\r\n"
       header += b"Connection: close\r\n\r\n"
 
-      #connectionSocket.sendall(header)
-      #connectionSocket.sendfile(f)
+      connectionSocket.sendall(header)
 
       for i in f: #for line in file
       #Send the content of the requested file to the client (don't forget the headers you created)!
-        header += i.encode()
-        connectionSocket.sendall(header)
-        connectionSocket.close() #closing the connection socket
-        f.close()
+        header += i#.encode()
+
+      connectionSocket.sendall(header)
+      connectionSocket.close() #closing the connection socket
+      #f.close()
 
     except Exception as e:
       # Send response message for invalid request due to the file not being found (404)
