@@ -29,7 +29,7 @@ def webServer(port=13331):
       #Content-Type is an example on how to send a header as bytes. There are more!
       header = b"HTTP/1.1 200 OK\r\n"
       header += b"Content-Type: text/html; charset=UTF-8\r\n"
-      header+= b"Server: CarterPortnoyPythonServer/2.1.2024\r\n"
+      header += b"Server: CarterPortnoyPythonServer/2.1.2024\r\n"
       header += b"Connection: close\r\n\r\n"
 
       connectionSocket.sendall(header)
@@ -37,10 +37,9 @@ def webServer(port=13331):
       for i in f: #for line in file
       #Send the content of the requested file to the client (don't forget the headers you created)!
         header += i#.encode()
-
-      connectionSocket.sendall(header)
+        connectionSocket.sendall(i)
       connectionSocket.close() #closing the connection socket
-      #f.close()
+      f.close()
 
     except Exception as e:
       # Send response message for invalid request due to the file not being found (404)
@@ -52,12 +51,11 @@ def webServer(port=13331):
       connectionSocket.sendall(notfound)
 
       #Close client socket
-      connectionSocket.close()
+    connectionSocket.close()
       # Next, close the file and server socket, right?
 
   #Commenting out the below, as its technically not required and some students have moved it erroneously in the While loop. DO NOT DO THAT OR YOURE GONNA HAVE A BAD TIME.
   #serverSocket.close()
-  #f.close()
   #sys.exit()  # Terminate the program after sending the corresponding data
 
 if __name__ == "__main__":
