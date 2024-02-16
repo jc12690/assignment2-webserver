@@ -12,7 +12,6 @@ def webServer(port=13331):
 
   while True:
     # Establish the connection
-
     print('Ready to serve...')
     connectionSocket, addr = serverSocket.accept() # Fill in start -are you accepting connections?     #Fill in end
 
@@ -27,10 +26,10 @@ def webServer(port=13331):
       # This variable can store the headers you want to send for any valid or invalid request.   What header should be sent for a response that is ok?
 
       # Content-Type is an example on how to send a header as bytes. There are more!
-      outputdata = "HTTP/1.1 200 OK\r\n"
-      outputdata += "Content-Type: text/html; charset=UTF-8\r\n"
-      outputdata += "Connection: close\r\n"
-      outputdata += "Server: CarterPortnoy\r\n\r\n"
+      outputdata = b"HTTP/1.1 200 OK\r\n"
+      outputdata += b"Content-Type: text/html; charset=UTF-8\r\n"
+      outputdata += b"Connection: close\r\n"
+      outputdata += b"Server: CarterPortnoy\r\n\r\n"
 
     # Note that a complete header must end with a blank line, creating the four-byte sequence "\r\n\r\n" Refer to https://w3.cs.jmu.edu/kirkpams/OpenCSF/Books/csf/html/TCPSockets.html
 
@@ -40,9 +39,9 @@ def webServer(port=13331):
         connectionSocket.close()  # closing the connection socket
 
     except Exception as e:
-      oops = "HTTP/1.1 404 Not Found\r\n"
-      oops += "Content-Type: text/html; charset=UTF-8\r\n"
-      oops += "Connection: close\r\n\r\n"
+      oops = b"HTTP/1.1 404 Not Found\r\n"
+      oops += b"Content-Type: text/html; charset=UTF-8\r\n"
+      #oops += b"Connection: keep-alive\r\n\r\n"
       connectionSocket.send(oops)
       connectionSocket.close() # close connection socket
 # Send response message for invalid request due to the file not being found (404)
