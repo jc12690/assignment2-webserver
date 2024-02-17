@@ -45,7 +45,7 @@ def webServer(port=13331):
       # Send response message for invalid request due to the file not being found (404)
       # Remember the format you used in the try: block!
       notfound = b"HTTP/1.1 404 Not Found\r\n"
-      notfound += b"Content-Type: text/html; charset=UTF-8\r\n\r\n" #html h1 not found
+      notfound += b"Content-Type: text/html; charset=UTF-8\r\n\r\n<html><h2>404 Not Found</h2></html>"
       #notfound += b"Connection: keep-alive\r\n"
       #notfound += b"Server: CarterPortnoyServer/2.1.2024\r\n\r\n"
       connectionSocket.sendall(notfound)
